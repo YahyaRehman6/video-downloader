@@ -1,5 +1,6 @@
 
 import re
+import requests 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -26,7 +27,6 @@ def get_instagram_detail(url):
             "video_url": video_url,
         }
     except Exception as e:
-        # return None
         return {'error': str(e)}
 
 
@@ -38,8 +38,6 @@ def instagram():
             'status': False,
             'message': 'Url not found.'
         }), 400
-    # regex = r'^https?:\/\/(?:www\.)?instagram\.com\/reel\/[a-zA-Z0-9_-]+\/\?igsh=[a-zA-Z0-9_+-=]+$'
-    # if not validate_url(url=url, regex=regex):
     if not "instagram" in url:
         return jsonify({
             'status': False,
@@ -57,26 +55,27 @@ def instagram():
 
 @app.route("/api/v1/tiktok")
 def tiktok():
-    url = request.args.get("url")
-    if not url:
-        return jsonify({
-            'status': False,
-            'message': 'Url not found.'
-        }), 400    
-    scraping_url = "https://tikdownloader.io/api/ajaxSearch"
-
-    headers = {"content-type": "application/x-www-form-urlencoded; charset=UTF-8"}
-    data = {"q": url}
-
     try:
+        url = request.args.get("url")
+        if not url:
+            return jsonify({
+                'status': False,
+                'message': 'Url not found.'
+            }), 400    
+        scraping_url = "https://tikdownloader.io/api/ajaxSearch"
+
+        headers = {"content-type": "application/x-www-form-urlencoded; charset=UTF-8"}
+        data = {"q": url}
         response = requests.post(scraping_url, headers=headers, data=data)
         if response.status_code == 200:
             response_json = response.json()
-            print("Response json is : ", response_json)
+            return jsonify({'data': str(response_json)})
         else:
             print("Error: Request failed with status code", response.status_code)
-            # Handle error case
-    except requests.exceptions.RequestException as e:
-        print("Error:", e)
-        # Handle error case
-    return ""
+            print("request json is : ", response.text)
+            return jsonify({'error': str(response.text)})
+    except Exception as e:
+        print("Exception:", e)
+        return jsonify({
+            'error': str(e) 
+        })
