@@ -6,7 +6,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from flask import Flask, request, jsonify
 
-bp = Flask(__name__)
+app = Flask(__name__)
 
 
 def get_instagram_detail(url):
@@ -30,7 +30,7 @@ def get_instagram_detail(url):
         return        
 
 
-@bp.route("/api/v1/instagram")
+@app.route("/api/v1/instagram")
 def instagram():
     url = request.args.get('url')
     if not url:
@@ -55,7 +55,7 @@ def instagram():
 
     return jsonify(detail)
 
-@bp.route("/api/v1/tiktok")
+@app.route("/api/v1/tiktok")
 def tiktok():
     url = request.args.get("url")
     if not url:
