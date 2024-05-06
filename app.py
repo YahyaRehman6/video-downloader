@@ -26,8 +26,8 @@ def get_instagram_detail(url):
             "video_url": video_url,
         }
     except Exception as e:
-        print("Exception is : ", e)
-        return        
+        # return None
+        return {'error': str(e)}
 
 
 @app.route("/api/v1/instagram")
