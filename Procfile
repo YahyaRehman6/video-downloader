@@ -1,1 +1,1 @@
-web: uvicorn app:app --host 0.0.0.0 --port 5001
+waitress-serve  --host=0.0.0.0  --port=5001  app:app
