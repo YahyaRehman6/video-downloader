@@ -59,3 +59,4 @@ Werkzeug==3.0.3
 wget==3.2
 wsproto==1.2.0
 youtube-dl==2021.12.17
+uvicorn==0.29.0
