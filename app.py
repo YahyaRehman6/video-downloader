@@ -144,7 +144,7 @@ def get_youtube_detail(video_url):
         video_urls_and_sizes = [
             {
                 "resolution": stream.resolution,
-                "url": quote(stream.url),
+                "url": encode_url(stream.url),
                 "size": convert_bytes(stream.filesize)
             }
             # for stream in yt.streams.filter(progressive=True,file_extension="mp4") if stream.resolution is not None
