@@ -158,7 +158,7 @@ def get_youtube_detail(video_url):
             "author": yt.author,
             "description": yt.description,
             "thumbnail_url": yt.thumbnail_url,
-            "video_url": highest_resolution_url,
+            "video_url": encode_url(highest_resolution_url),
             "highest_resolution_size": convert_bytes(highest_resolution_size),
             "video_urls_by_resolution": video_urls_and_sizes,
         }
